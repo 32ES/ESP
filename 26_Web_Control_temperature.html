@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature sensor</title>
+    <style type="text/css">
+        /* Styling for the text within elements with the class "text-properties" */
+        .text-properties {
+            text-align: center; /* Aligns text to the center */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main content area for displaying the temperature -->
+    <div>
+        <div class="text-properties">
+            <h2>Temperature</h2> <!-- Heading for the temperature display -->
+            <p class="value" id="temperature"></p> <!-- Placeholder where temperature value will be displayed -->
+        </div>
+    </div>
+
+    <!-- Including Firebase JavaScript libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+    <!-- Section to include Firebase configuration -->
+    <!-- Copy-paste the script from Firebase website here (starting from <script type="module" until the "};" line) -->
+
+   <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: ""
+  };
+
+        // Initialize Firebase using the provided configuration
+        firebase.initializeApp(firebaseConfig);
+
+        // Getting reference to Firebase Realtime Database
+        var database = firebase.database();
+
+        // Getting reference to a specific location in the database where temperature data is stored
+        var dataRef2 = database.ref('Myfirebase/temperature');
+
+        // Setting up a listener that listens for changes in the temperature value in the database
+        dataRef2.on('value', function(getdata2) {
+            // Retrieve the current value of temperature from Firebase
+            var temp = getdata2.val();
+
+            // Update the content of the HTML element with id 'temperature' with the new value of temperature
+            // The HTML entity "&#8451;" represents the Celsius degree symbol
+            document.getElementById('temperature').innerHTML = temp + "&#8451;";
+        });
+    </script>
+
+</body>
+</html>
